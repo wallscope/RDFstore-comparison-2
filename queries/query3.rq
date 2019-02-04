@@ -1,0 +1,31 @@
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT * WHERE {
+  {?v2 a dbo:Settlement;
+       rdfs:label ?v.
+   ?v6 a dbo:Airport.}
+  {?v6 dbo:city ?v2.}
+  UNION
+  {?v6 dbo:location ?v2.}
+  {?v6 dbp:iata ?v5.}
+  UNION
+  {?v6 dbo:iataLocationIdentifier ?v5.}
+  OPTIONAL {?v6 foaf:homepage ?v7.}
+  OPTIONAL {?v6 dbp:nativename ?v8.}
+{
+SELECT DISTINCT ?v WHERE {
+  { ?v2 a dbo:Settlement ;
+        rdfs:label ?v .
+    ?v6 a dbo:Airport . }
+  { ?v6 dbo:city ?v2 . }
+  UNION
+    { ?v6 dbo:location ?v2 . }
+  { ?v6 dbp:iata ?v5 . }
+  UNION
+    { ?v6 dbo:iataLocationIdentifier ?v5 . }
+  OPTIONAL { ?v6 foaf:homepage ?v7 . }
+  OPTIONAL { ?v6 dbp:nativename ?v8 . }
+} LIMIT 1000
+  }}

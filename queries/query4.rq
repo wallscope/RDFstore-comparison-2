@@ -1,0 +1,24 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+SELECT (ROUND(?x/?y) AS ?result) WHERE {  
+  {SELECT (CEIL(?a + ?b) AS ?x) WHERE {
+    {SELECT (AVG(?abslat) AS ?a) WHERE {
+    ?s1 geo:lat ?lat .
+    BIND(ABS(?lat) AS ?abslat)
+    }}
+    {SELECT (SUM(?rv) AS ?b) WHERE {
+    ?s2 dbo:volume ?volume .
+    BIND((RAND() * ?volume) AS ?rv)
+    }}
+  }}
+  
+  {SELECT ((FLOOR(?c + ?d)) AS ?y) WHERE {
+      {SELECT ?c WHERE {
+        BIND(MINUTES(NOW()) AS ?c)
+      }}
+      {SELECT (AVG(?width) AS ?d) WHERE {
+        ?s3 dbo:width ?width .
+        FILTER(?width > 50)
+      }}
+  }}
+}
