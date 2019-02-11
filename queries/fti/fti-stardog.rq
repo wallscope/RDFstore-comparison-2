@@ -1,0 +1,18 @@
+PREFIX ex: <http://wallscope.co.uk/resource/example/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+CONSTRUCT {
+  ex:notglutenfree rdfs:label ?label ;
+                   rdfs:comment ?sab ;
+                   dbo:abstract ?lab .
+} WHERE {
+  {?s1 rdfs:label ?label .
+  ?label <tag:stardog:api:property:textMatch> 'venus'
+  } UNION
+  {?s2 rdfs:comment ?sab .
+  ?sab <tag:stardog:api:property:textMatch> 'sleep'
+  } UNION
+  {?s3 dbo:abstract ?lab .
+  ?lab <tag:stardog:api:property:textMatch> 'gluten'
+  }
+}

@@ -1,0 +1,19 @@
+PREFIX ex: <http://wallscope.co.uk/resource/example/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
+CONSTRUCT {
+  ex:notglutenfree rdfs:label ?label ;
+                   rdfs:comment ?sab ;
+                   dbo:abstract ?lab .
+} WHERE {
+  {?s1 rdfs:label ?label .
+  ?label luc:myIndex 'venus'
+  } UNION
+  {?s2 rdfs:comment ?sab .
+  ?sab luc:myIndex 'sleep'
+  } UNION
+  {?s3 dbo:abstract ?lab .
+  ?lab luc:myIndex 'gluten'
+  }
+}
