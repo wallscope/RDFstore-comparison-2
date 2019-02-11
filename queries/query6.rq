@@ -1,0 +1,16 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbp: <http://dbpedia.org/property/>
+
+SELECT DISTINCT ?soccerplayer ?countryOfBirth ?team ?countryOfTeam ?stadiumcapacity
+{ 
+?soccerplayer a dbo:SoccerPlayer ;
+   dbo:position|dbp:position <http://dbpedia.org/resource/Goalkeeper_(association_football)> ;
+   dbo:birthPlace/dbo:country* ?countryOfBirth ;
+   dbo:team ?team .
+   ?team dbo:capacity ?stadiumcapacity ; dbo:ground ?countryOfTeam . 
+   ?countryOfBirth a dbo:Country ; dbo:populationTotal ?population .
+   ?countryOfTeam a dbo:Country .
+FILTER (?countryOfTeam != ?countryOfBirth)
+FILTER (?stadiumcapacity > 30000)
+FILTER (?population > 10000000)
+} order by ?soccerplayer

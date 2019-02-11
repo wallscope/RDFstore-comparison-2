@@ -1,0 +1,14 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX : <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?name ?birth ?death ?person
+WHERE {
+	?person dbo:birthPlace :Berlin .
+	?person dbo:birthDate ?birth .
+	?person foaf:name ?name .
+	?person dbo:deathDate ?death .
+	FILTER (?birth < "1900-01-01"^^xsd:date)
+	}
+	ORDER BY ?name
