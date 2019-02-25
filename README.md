@@ -6,4 +6,4 @@ Additionally, csv's containing the results and how to get the data.
 
 ## Getting the data
 
-TODO: add instructions here
+Instructions are in the directory called `data`
